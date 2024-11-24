@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         registerEnterprise,
       }}
     >
-      {!isLoading && children} {/* Solo renderiza el contenido cuando la carga inicial ha terminado */}
+      {!isLoading && <>{children}</>} {/* Solo renderiza el contenido cuando la carga inicial ha terminado */}
     </AuthContext.Provider>
   );
 };

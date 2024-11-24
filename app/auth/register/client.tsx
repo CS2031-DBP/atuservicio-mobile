@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
-import { RegisterClient } from '../interfaces/Register';
+import { RegisterClient } from '../../../interfaces/Register';
+
  // Asegúrate de ajustar la ruta a donde tengas definida la interfaz
 
 export default function ClientRegisterScreen() {

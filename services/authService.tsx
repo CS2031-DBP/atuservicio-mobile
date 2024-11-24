@@ -2,6 +2,8 @@ import { AuthResponse } from "../interfaces/AuthResponse";
 import { LoginUser } from "../interfaces/LoginUser";
 import { RegisterClient, RegisterEnterprise, RegisterFreelancer } from "../interfaces/Register";
 import Api from "./api";
+
+
 export const loginService = async (credentials: LoginUser): Promise<{ token: string }> => {
   try {
     const api = await Api.getInstance();

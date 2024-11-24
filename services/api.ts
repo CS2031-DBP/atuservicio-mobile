@@ -19,7 +19,7 @@ export default class Api {
 
   public static async getInstance() {
     if (!this._instance) {
-      const basePath = "http://192.168.1.40:8080";  // Cambia esto por tu endpoint
+      const basePath = "http://192.168.18.108:8080";  // Cambia esto por tu endpoint
       const authorization = await SecureStore.getItemAsync("authToken"); // Obtén el token almacenado, si existe
       this._instance = new Api(basePath, authorization);
     }
