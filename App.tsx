@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import LoginForm from './components/LoginForm';
 
 import React from 'react';
-import AppNavigator from './navigation/AppNavigator';
+import { Slot } from 'expo-router';
 
 export default function App() {
-  return <AppNavigator />;
+  return <Slot />; 
 }

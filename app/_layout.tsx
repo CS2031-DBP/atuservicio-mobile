@@ -16,9 +16,9 @@ function RootNavigator() {
 
   React.useEffect(() => {
     if (isAuthenticated) {
-      router.replace('(authenticated)/home'); // Redirige a la sección autenticada
+      router.replace('/dashboard/home'); // Redirige a la sección autenticada
     } else {
-      router.replace('(auth)/login'); // Redirige a la sección no autenticada
+      router.replace('/auth/login'); // Redirige a la sección no autenticada
     }
   }, [isAuthenticated]);
 
