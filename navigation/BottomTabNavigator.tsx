@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 
 // Importa tus pantallas
 import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../app/(authenticated)/profile';
+import ProfileScreen from '../app/dashboard/profile';
 
 // Configura las tabs
 const Tab = createBottomTabNavigator();

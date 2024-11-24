@@ -2,7 +2,7 @@ import React from 'react';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { Stack, useRouter } from 'expo-router';
 
-export default function RootLayout() {
+export default function Layout() {
   return (
     <AuthProvider>
       <RootNavigator />

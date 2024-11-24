@@ -1,8 +1,14 @@
 import React from 'react';
 import { Stack } from 'expo-router';
+import {Slot } from 'expo-router';
 
 export default function AuthenticatedLayout() {
   return (
+
+
+    <View>
+      <Slot/>
+    </View>
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: '#6200ee' },
@@ -15,11 +21,3 @@ export default function AuthenticatedLayout() {
     </Stack>
   );
 }
-
-
-
-
-// comentario aplicado
-
-//comentario 
-
