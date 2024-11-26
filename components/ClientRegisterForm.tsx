@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
-import { RegisterClient } from '../../../interfaces/Register';
+import { RegisterClient } from '../interfaces/Register';
+import { registerClientService } from '../services/authService';
 
  // Asegúrate de ajustar la ruta a donde tengas definida la interfaz
 
@@ -22,12 +24,16 @@ export default function ClientRegisterScreen() {
   };
 
   // Función para manejar el envío del formulario
-  const handleRegister = () => {
-    console.log('Datos enviados:', formData);
-    // Aquí puedes llamar a tu API para registrar al cliente, por ejemplo:
-    // api.post('/clients/register', formData)
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.error(error));
+  const handleRegister = async () => {
+    try {
+      // Llama al servicio para registrar al cliente
+      await registerClientService(formData);
+      console.log('Registro exitoso:', formData);
+      alert('Registro exitoso'); // Notificación al usuario
+    } catch (error: any) {
+      console.error('Error al registrar:', error.message);
+      alert('Ocurrió un error durante el registro. Inténtalo nuevamente.');
+    }
   };
 
   return (
@@ -99,3 +105,4 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+

@@ -8,7 +8,7 @@ export default function Navbar() {
   
     return (
       <View style={styles.navbar}>
-        <TouchableOpacity onPress={() => router.push('/dashboard/home')} style={styles.navItem}>
+        <TouchableOpacity onPress={() => router.push('/dashboard/')} style={styles.navItem}>
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push('/dashboard/buscar')} style={styles.navItem}>

@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import { Stack, useRouter } from 'expo-router';
+import { Slot, Stack, useRouter } from 'expo-router';
+import "../global.css";
+
+
 
 export default function Layout() {
   return (
     <AuthProvider>
+
       <RootNavigator />
     </AuthProvider>
   );
 }
 
-function RootNavigator() {
+export function RootNavigator(){
   const { isAuthenticated } = useAuth();
   const router = useRouter();
 
-  React.useEffect(() => {
-    if (isAuthenticated) {
-      router.replace('/dashboard/home'); // Redirige a la sección autenticada
-    } else {
-      router.replace('/auth/login'); // Redirige a la sección no autenticada
-    }
-  }, [isAuthenticated]);
 
-  return <Stack />;
+  useEffect(() => {
+      if (isAuthenticated) {
+        router.replace('/dashboard/home'); // Redirige a la sección autenticada
+      } else {
+        router.replace('/auth/login'); // Redirige a la sección no autenticada
+      }
+    }, [isAuthenticated]);
+  
+    return <Stack
+    screenOptions={{
+      headerShown: false,
+      headerStyle: { backgroundColor: '#6200ee' },
+      headerTintColor: '#fff',
+      headerTitleStyle: { fontWeight: 'bold' },
+    }}
+  >
+
+  </Stack>
+  
 }

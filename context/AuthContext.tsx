@@ -3,8 +3,10 @@ import * as SecureStore from 'expo-secure-store';
 import { LoginUser } from '../interfaces/LoginUser';
 import { RegisterClient, RegisterEnterprise, RegisterFreelancer } from '../interfaces/Register';
 import { loginService, registerClientService, registerEnterpriseService, registerFreelancerService } from '../services/authService';
+import { View, Text } from 'react-native'
 
 interface AuthContextType {
+    isLoading:boolean;
     isAuthenticated: boolean;
     token: string | null;
     login: (credentials: LoginUser) => Promise<void>; // Ahora login acepta un objeto LoginUser
@@ -15,25 +17,31 @@ interface AuthContextType {
   }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
+  
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Cargar el token desde SecureStore al iniciar la app
   useEffect(() => {
     const loadToken = async () => {
-      const storedToken = await SecureStore.getItemAsync('authToken');
-      if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
+      try {
+        console.log('Intentando cargar el token...');
+        const storedToken = await SecureStore.getItemAsync('authToken');
+        if (storedToken) {
+          console.log('Token encontrado:', storedToken);
+          setToken(storedToken);
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Error al cargar el token:', error);
+      } finally {
+        setIsLoading(false); // Finaliza la carga independientemente del resultado
       }
-      setIsLoading(false); // Marcamos como completada la carga inicial
     };
 
     loadToken();
-  }, []);  
+  }, []);
 
   const login = async (credentials: LoginUser) => {
     try {
@@ -79,6 +87,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        isLoading,
         token,
         login,
         logout,
@@ -87,7 +96,15 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         registerEnterprise,
       }}
     >
-      {!isLoading && <>{children}</>} {/* Solo renderiza el contenido cuando la carga inicial ha terminado */}
+      {isLoading ? (
+    <Text>Cargando...</Text>
+  ) : (
+    React.isValidElement(children) ? (
+      children
+    ) : (
+      <Text>Contenido no válido</Text>
+    )
+  )}
     </AuthContext.Provider>
   );
 };

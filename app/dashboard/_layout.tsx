@@ -1,21 +1,23 @@
 import { View, StyleSheet } from 'react-native';
-import { Slot, Stack } from 'expo-router';
+import { Slot, Stack, useRouter } from 'expo-router';
+import { useAuth } from '../../context/AuthContext';
+import { useEffect } from 'react';
 import Navbar from '../../components/Navbar';
+
 
 
 export default function DashboardLayout() {
   return (
-    <View style={styles.container}>
-      {/* Renderiza el contenido principal */}
-      <View style={styles.content}>
-        <Slot /> {/* Renderiza las pantallas como home, profile, etc. */}
-      </View>
+    <View style={{ flex: 1 }}>
 
-      {/* Navbar fijo en la parte inferior */}
-      <Navbar />
+
+      <Slot /> {/* Renderiza automáticamente las rutas hijas */}
+        
+      <Navbar/>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

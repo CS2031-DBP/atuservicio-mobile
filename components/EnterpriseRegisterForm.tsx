@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 import { RegisterEnterprise } from '../interfaces/Register';
+import { registerEnterpriseService } from '../services/authService';
 
 export default function EnterpriseRegisterScreen() {
   // Estado inicial del formulario basado en la interfaz RegisterEnterprise
@@ -22,8 +23,15 @@ export default function EnterpriseRegisterScreen() {
   };
 
   // Función para manejar el envío del formulario
-  const handleRegister = () => {
-    console.log('Datos enviados:', formData);
+  const handleRegister = async () => {
+    try {
+      await registerEnterpriseService(formData); // Llama al método del contexto
+      console.log('Registro exitoso:', formData);
+      alert('Empresa registrada exitosamente.');
+    } catch (error: any) {
+      console.error('Error al registrar la empresa:', error.message);
+      alert('Error al registrar la empresa. Intente nuevamente.');
+    }
   };
 
   return (

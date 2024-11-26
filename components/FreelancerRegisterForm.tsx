@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Text } from 'react-native-paper';
 import { RegisterFreelancer } from '../interfaces/Register';
+import { registerFreelancerService } from '../services/authService';
 
 export default function FreelancerRegisterScreen() {
   // Estado inicial del formulario basado en la interfaz RegisterFreelancer
+  
   const [formData, setFormData] = useState<RegisterFreelancer>({
     email: '',
     password: '',
@@ -22,8 +24,15 @@ export default function FreelancerRegisterScreen() {
   };
 
   // Función para manejar el envío del formulario
-  const handleRegister = () => {
-    console.log('Datos enviados:', formData);
+  const handleRegister = async () => {
+    try {
+      await registerFreelancerService(formData); // Llama al método del contexto
+      console.log('Registro exitoso:', formData);
+      alert('Freelancer registrado exitosamente.');
+    } catch (error: any) {
+      console.error('Error al registrar freelancer:', error.message);
+      alert('Error al registrar freelancer. Intente nuevamente.');
+    }
   };
 
   return (
@@ -109,3 +118,4 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
+

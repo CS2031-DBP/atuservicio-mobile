@@ -1,17 +1,16 @@
-import React from 'react';
-import { Stack } from 'expo-router';
+
+import React, { useEffect } from 'react';
+import { useRouter, Slot, Stack } from 'expo-router';
+import { useAuth } from '../../context/AuthContext';
+import { View , Text} from 'react-native';
+
+
 
 export default function AuthLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: { backgroundColor: '#6200ee' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-      }}
-    >
-      <Stack.Screen name="login" options={{ title: 'Iniciar Sesión' }} />
-      <Stack.Screen name="register" options={{ title: 'Registro' }} />
-    </Stack>
+    <View className="flex-1 justify-center items-center">
+
+      <Slot /> {/* Renderiza las rutas hijas automáticamente */}
+    </View>
   );
 }
