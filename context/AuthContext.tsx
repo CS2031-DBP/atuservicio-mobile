@@ -5,6 +5,7 @@ import { RegisterClient, RegisterEnterprise, RegisterFreelancer } from '../inter
 import { loginService, registerClientService, registerEnterpriseService, registerFreelancerService } from '../services/authService';
 import { View, Text } from 'react-native'
 
+
 interface AuthContextType {
     isLoading:boolean;
     isAuthenticated: boolean;
@@ -23,24 +24,33 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Cargar el token desde SecureStore al iniciar la app
   useEffect(() => {
+    let isMounted = true; // Bandera para verificar si el componente está montado
+    
     const loadToken = async () => {
       try {
         console.log('Intentando cargar el token...');
         const storedToken = await SecureStore.getItemAsync('authToken');
-        if (storedToken) {
-          console.log('Token encontrado:', storedToken);
-          setToken(storedToken);
-          setIsAuthenticated(true);
+        if (isMounted) {
+          if (storedToken) {
+            console.log('Token encontrado:', storedToken);
+            setToken(storedToken);
+            setIsAuthenticated(true);
+          }
+          setIsLoading(false); // La carga ha finalizado
         }
       } catch (error) {
         console.error('Error al cargar el token:', error);
-      } finally {
-        setIsLoading(false); // Finaliza la carga independientemente del resultado
+        if (isMounted) setIsLoading(false); // Asegúrate de finalizar el estado de carga
       }
     };
-
+  
     loadToken();
+  
+    return () => {
+      isMounted = false; // Marca el componente como desmontado
+    };
   }, []);
 
   const login = async (credentials: LoginUser) => {

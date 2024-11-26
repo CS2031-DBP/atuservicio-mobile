@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
+import ListServicesPage from '../../components/ListServicePage';
 
 export default function Buscar() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>¡Buscar contenido aquí!</Text>
+      <ListServicesPage/>
     </View>
   );
 }
